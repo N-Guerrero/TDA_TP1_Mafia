@@ -23,11 +23,10 @@ def calcular_intersecciones(timestamps_transferencias, timestamps_sospechoso):
 def main():
     # O(n * log(n)) por ordenar los timestamps + O(n) por recorrerlos
     intersecciones = calcular_intersecciones(EJEMPLO_TIMESTAMPS_TRANSFERENCIAS_SOSPECHOSAS, EJEMPLO_TIMESTAMPS_SOSPECHOSO)
-    
     sospechoso_es_culpable = len(intersecciones) == len(EJEMPLO_TIMESTAMPS_TRANSFERENCIAS_SOSPECHOSAS)
     
-    print(f"El sospechoso {'es' if sospechoso_es_culpable else 'no es'} culpable.")
     for interseccion in intersecciones:
         print(f"Intervalo: {interseccion[0]}, Transferencia del sospechoso: {interseccion[1]}")
+    print(f"El sospechoso {'es' if sospechoso_es_culpable else 'no es'} culpable.")
 
 main()
