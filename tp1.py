@@ -12,6 +12,7 @@ def hay_interseccion(tranferencia_sospechosa, transferencia_del_sospechoso):
 
 def calcular_intersecciones(timestamps_transferencias, timestamps_sospechoso):
     intersecciones = []
+    # Ordena por tiempo de inicio
     timestamps_transferencias.sort(key=lambda x: x[0]-x[1]) # O(n * log(n))
     for i in range(len(timestamps_transferencias)):
         if not hay_interseccion(timestamps_transferencias[i], timestamps_sospechoso[i]):
