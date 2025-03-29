@@ -12,12 +12,29 @@ def hay_interseccion(tranferencia_sospechosa, transferencia_del_sospechoso):
 
 def calcular_intersecciones(transferencias_sospechosas, transferencias_del_sospechoso):
     intersecciones = []
-    # Ordena por tiempo de inicio
-    transferencias_sospechosas.sort(key=lambda x: x[0]-x[1]) # O(n * log(n))
+    # Ordena por tiempo de fin
+    transferencias_sospechosas.sort(key=lambda x: x[0]+x[1]) # O(n * log(n))
+    
     for i in range(len(transferencias_sospechosas)):
-        if not hay_interseccion(transferencias_sospechosas[i], transferencias_del_sospechoso[i]):
-            # No es culpable
+        # Si las transferencias coinciden, la agrego a la lista salto a la iteración siguiente
+        if hay_interseccion(transferencias_sospechosas[i], transferencias_del_sospechoso[i]):
+            intersecciones.append((transferencias_sospechosas[i], transferencias_del_sospechoso[i]))
+            continue
+
+        # Si la transferencia no coincide con la transferencia sospechosa actual, podría conicidir con una posterior (caso borde de transferencias solapadas donde una contiene a la otra).
+        # El algoritmo sigue siendo Greedy porque en cada iterción busca el óptimo local, y al encontrarlo, descarta esa posibilidad para futuras iteraciones.
+        # En caso de no encontrarlo el algoritmo termina, diciendo que el sospechoso no es culpable
+        interseccion_con_transaccion_posterior = False
+        for j in range(i, len(transferencias_sospechosas)):
+            if hay_interseccion(transferencias_sospechosas[j], transferencias_del_sospechoso[i]):
+                transferencias_sospechosas[i], transferencias_sospechosas[j] = transferencias_sospechosas[j], transferencias_sospechosas[i]
+                intersecciones.append((transferencias_sospechosas[i], transferencias_del_sospechoso[i]))
+                interseccion_con_transaccion_posterior = True
+                break
+        
+        # Si no coincidió con ninguna de las restantes, el sospechoso no es el culpable
+        if not interseccion_con_transaccion_posterior:
             return intersecciones, False
-        intersecciones.append((transferencias_sospechosas[i], transferencias_del_sospechoso[i]))
+
     # Es culpable
     return intersecciones, True

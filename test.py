@@ -43,7 +43,7 @@ def test_tp1():
         intersecciones, es_culpable = calcular_intersecciones(transferencias_sospechosas, transferencias_sospechoso)
         print(test_file)
         if es_culpable != debe_ser_culpable:
-            print(f"Test file: {test_file}, Expected: {debe_ser_culpable}, Got: {es_culpable}")
+            print(f"Test failed: {test_file}, Expected: {"Culpable" if debe_ser_culpable else "No culpable"}, Got: {"Culpable" if es_culpable else "No Culpable"}")
             return
         
         if not es_culpable:
