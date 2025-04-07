@@ -37,6 +37,7 @@ def calcular_intersecciones(intervalos_sospechosos, transferencias_del_sospechos
         # En cada iteración, recorro uno a uno y compruebo si la transferencia (actual) está dentro del intervalo (actual).
         if esta_dentro_del_intervalo(intervalos_sospechosos[i], transferencias_del_sospechoso[i]):
             intersecciones.append((intervalos_sospechosos[i], transferencias_del_sospechoso[i]))
+            continue
 
         # Sí la transferencia no está dentro del intervalo sospechoso actual, podría conicidir con uno posterior (Caso borde donde dos o más intervalos se superponen).
         # El algoritmo sigue siendo Greedy porque en cada iteración busca el óptimo local, y al encontrarlo, descarta esa posibilidad para futuras iteraciones.
