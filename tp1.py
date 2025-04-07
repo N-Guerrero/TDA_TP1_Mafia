@@ -1,6 +1,5 @@
-# CASOS EJEMPLO
-# EJEMPLO_INTERVALOS_SOSPECHOSOS = [(10.34, 2.2), (5.33, 4), (8.12, 3.1), (7.45, 2.9), (19.2, 10), (10.4, 5)]
-# EJEMPLO_TRANSFERENCIAS_DEL_SOSPECHOSO = [2, 5, 6, 8, 9, 10, 16]
+import sys
+import helpers
 
 # MACROS
 TIEMPO,ERROR = 0,1
@@ -58,3 +57,18 @@ def calcular_intersecciones(intervalos_sospechosos, transferencias_del_sospechos
 
     # Retorno la culpabilidad del sospechoso con las N intersecciones.
     return intersecciones, True
+
+
+def main():
+    if len(sys.argv) < 2:
+        print(f"Uso: python3 {sys.argv[0]} <ruta/a/entrada.txt>")
+        sys.exit(1)
+
+    file_path = sys.argv[1]
+    transferencias_sospechosas, transferencias_del_sospechoso = helpers.parse_file(file_path)
+    
+    intersecciones, es_culpable = calcular_intersecciones(transferencias_sospechosas, transferencias_del_sospechoso)
+    helpers.print_results(file_path, intersecciones, es_culpable)
+
+if __name__ == "__main__":
+    main()
